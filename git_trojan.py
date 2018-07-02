@@ -43,8 +43,8 @@ class GitImporter():
         return module
 
 def connect_to_github():
-    gh = login('tikibms', '0709ketag')
-    repo = gh.repository('tikibms', 'chapter7')
+    gh = login('user', 'pass')
+    repo = gh.repository('user', 'chapter7')
     branch = repo.branch("master")
     #branch = 0
 
