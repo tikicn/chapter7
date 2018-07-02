@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import json
 import base64
 import sys
@@ -46,8 +45,8 @@ class GitImporter():
 def connect_to_github():
     gh = login('tikibms', '0709ketag')
     repo = gh.repository('tikibms', 'chapter7')
-    #branch = repo.branch("master")
-    branch = 0
+    branch = repo.branch("master")
+    #branch = 0
 
     return gh, repo, branch
 
