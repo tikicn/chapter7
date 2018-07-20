@@ -4,7 +4,7 @@ import time
 import urllib.request
 import urllib.parse
 
-data_receiver = "http://xxx.xxx.xxx.xxx:8080/"
+data_receiver = "http://192.168.208.130:8080/"
 
 target_sites = {}
 
